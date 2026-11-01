@@ -110,7 +110,15 @@ function App() {
             <div className="hero-note">
               <ShieldCheck size={18} /> Quality vehicles. Straightforward service.
             </div>
+                    </div>
+
+          <div className="hero-vehicle">
+            <img
+              src="/Screenshot_20261101_200921_Maps.jpg"
+              alt="Lexus SUV at CARS4SALES Ibadan"
+            />
           </div>
+
           <div className="hero-mark">
             <span>4</span>
             <small>YOUR JOURNEY<br />OUR PRIORITY</small>
