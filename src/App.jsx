@@ -116,7 +116,30 @@ function App() {
             <small>YOUR JOURNEY<br />OUR PRIORITY</small>
           </div>
         </section>
-
+        
+                <section style={{
+          padding: '60px 6%',
+          background: '#0b0b0b',
+          textAlign: 'center'
+        }}>
+          <p className="eyebrow">VISIT OUR DEALERSHIP</p>
+          <h2>Welcome to <span>CARS4SALES IBADAN</span></h2>
+          <p style={{ marginBottom: '28px' }}>
+            Quality vehicles. Straightforward service.
+          </p>
+          <img
+            src="/1793382015136.jpg"
+            alt="CARS4SALES dealership showroom and signboard"
+            style={{
+              width: '100%',
+              maxWidth: '1100px',
+              height: 'auto',
+              borderRadius: '12px',
+              display: 'block',
+              margin: '0 auto'
+            }}
+          />
+        </section>
         <section className="welcome-video">
           <div>
             <p className="eyebrow">GET TO KNOW US</p>
