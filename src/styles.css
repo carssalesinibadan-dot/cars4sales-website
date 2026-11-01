@@ -183,16 +183,20 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .hero-note svg { color: var(--gold); }
 
 .hero-mark {
-  width: 220px;
-  height: 220px;
-  border: 1px solid #8b713d;
-  border-radius: 50%;
+  position: absolute;
+  right: 6%;
+  bottom: 35px;
+  z-index: 3;
+  width: auto;
+  height: auto;
+  border: none;
+  border-radius: 0;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  justify-content: center;
+  gap: 12px;
   color: var(--gold);
-  opacity: .8;
+  opacity: 0.95;
 }
 
 .hero-mark span {
@@ -460,7 +464,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 
 @media (max-width: 850px) {
   .nav-links { gap: 15px; }
-  .hero-mark { width: 150px; height: 150px; }
+  .hero-mark { display: none; }
   .hero-mark span { font-size: 75px; }
   .vehicle-grid { grid-template-columns: repeat(2, 1fr); }
 }
@@ -486,8 +490,9 @@ button, a { -webkit-tap-highlight-color: transparent; }
   }
   .nav-links.open { display: flex; }
   .hero {
-    min-height: 530px;
-    padding: 75px 7%;
+  min-height: 580px;
+  padding: 65px 7%;
+  background-position: 62% center;
   }
   .hero-mark { display: none; }
   .hero h1 { font-size: 43px; }
