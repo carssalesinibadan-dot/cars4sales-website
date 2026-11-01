@@ -6,6 +6,7 @@ import {
 import { supabase } from './supabase'
 import Admin from './Admin'
 import ResetPassword from './ResetPassword'
+const LOGO = '/file_000000008c6881f4b94f05827d02b1c5.png'
 const PHONE = '2348100772522'
 const WHATSAPP = 'https://wa.me/' + PHONE
 const ADDRESS = 'Km 3 Alao Akala Express, near Ire Akali Junction, Oluyole, Ibadan, Oyo State, Nigeria'
@@ -69,7 +70,7 @@ function App() {
 
       <header className="site-header">
         <a className="brand" href="#home">
-          <span className="brand-name">CARS<span>4</span>SALES</span>
+          <img src={LOGO} alt="CARS4SALES" style={{ height: '54px', width: 'auto', objectFit: 'contain' }} />
           <small>YOUR NEXT DRIVE STARTS HERE</small>
         </a>
 
