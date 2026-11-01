@@ -5,6 +5,7 @@ import {
 } from 'lucide-react'
 import { supabase } from './supabase'
 import Admin from './Admin'
+import ResetPassword from './ResetPassword'
 const PHONE = '2348100772522'
 const WHATSAPP = 'https://wa.me/' + PHONE
 const ADDRESS = 'Km 3 Alao Akala Express, near Ire Akali Junction, Oluyole, Ibadan, Oyo State, Nigeria'
@@ -53,6 +54,9 @@ function App() {
   const money = (value) => {
     if (!value) return 'Contact for price'
     return '₦' + Number(value).toLocaleString('en-NG')
+  }
+  if (window.location.pathname === '/reset-password') {
+  return <ResetPassword />
   }
   if (window.location.pathname === '/admin') {
   return <Admin />
