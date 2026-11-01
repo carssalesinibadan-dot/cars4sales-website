@@ -91,14 +91,30 @@ button, a { -webkit-tap-highlight-color: transparent; }
 }
 
 .hero {
-  min-height: 590px;
-  padding: 100px 9%;
+  min-height: 620px;
+  padding: 100px 6%;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  position: relative;
+  overflow: hidden;
   background:
-    linear-gradient(90deg, #080808 15%, #080808ed 48%, #08080880),
-    radial-gradient(ellipse at 80% 50%, #514022 0%, #17130d 35%, #090909 75%);
+    linear-gradient(
+      90deg,
+      rgba(5, 5, 5, 0.96) 0%,
+      rgba(5, 5, 5, 0.82) 38%,
+      rgba(5, 5, 5, 0.25) 100%
+    ),
+    linear-gradient(
+      0deg,
+      rgba(5, 5, 5, 0.45),
+      transparent 45%
+    ),
+    url('/1793382015136.jpg');
+  background-size: cover;
+  background-position: center 48%;
+  background-repeat: no-repeat;
+  border-bottom: 2px solid #d5ad58;
 }
 
 .hero-content { max-width: 690px; }
