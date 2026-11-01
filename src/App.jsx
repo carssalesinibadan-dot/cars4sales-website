@@ -4,7 +4,7 @@ import {
   ArrowRight, ShieldCheck, Wrench, Clock, ChevronRight
 } from 'lucide-react'
 import { supabase } from './supabase'
-
+import Admin from './Admin'
 const PHONE = '2348100772522'
 const WHATSAPP = 'https://wa.me/' + PHONE
 const ADDRESS = 'Km 3 Alao Akala Express, near Ire Akali Junction, Oluyole, Ibadan, Oyo State, Nigeria'
@@ -54,7 +54,9 @@ function App() {
     if (!value) return 'Contact for price'
     return '₦' + Number(value).toLocaleString('en-NG')
   }
-
+  if (window.location.pathname === '/admin') {
+  return <Admin />
+}
   return (
     <div className="site-shell">
       <div className="top-strip">
