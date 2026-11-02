@@ -15,6 +15,7 @@ const VIDEO = 'https://res.cloudinary.com/dvus6pks/video/upload/v1793436519/Cars
 
 function App() {
   const [vehicles, setVehicles] = useState([])
+  const [selectedVehicle, setSelectedVehicle] = useState(null)
   const [search, setSearch] = useState('')
   const [bodyType, setBodyType] = useState('All')
   const [menuOpen, setMenuOpen] = useState(false)
@@ -47,6 +48,9 @@ function App() {
     return matchesSearch && matchesType
   })
 
+    const openVehicleDetails = (vehicle) => {
+    setSelectedVehicle(vehicle)
+    }
   const enquiry = (vehicle) => {
     const message = `Hello CARS4SALES, I am interested in the ${vehicle.year} ${vehicle.make} ${vehicle.model}${vehicle.trim ? ' ' + vehicle.trim : ''}. Please provide more details.`
     window.open(`${WHATSAPP}?text=${encodeURIComponent(message)}`, '_blank')
@@ -209,7 +213,12 @@ function App() {
                   : null
 
                 return (
-                  <article className="vehicle-card" key={vehicle.id}>
+                  <article
+  className="vehicle-card"
+  key={vehicle.id}
+  onClick={() => openVehicleDetails(vehicle)}
+  style={{ cursor: 'pointer' }}
+>
                     <div className="vehicle-image">
                       {imageUrl ? <img src={imageUrl} alt={`${vehicle.year} ${vehicle.make} ${vehicle.model}`} /> : <Car size={55} />}
                       <span className="vehicle-status">{vehicle.availability || 'Available'}</span>
@@ -230,6 +239,92 @@ function App() {
           )}
         </section>
 
+                {selectedVehicle && (
+          <div
+            onClick={() => setSelectedVehicle(null)}
+            style={{
+              position: 'fixed',
+              inset: 0,
+              background: 'rgba(0,0,0,0.85)',
+              zIndex: 9999,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: '20px',
+              overflowY: 'auto'
+            }}
+          >
+            <div
+              onClick={e => e.stopPropagation()}
+              style={{
+                background: '#151515',
+                border: '1px solid #c9a44c',
+                borderRadius: '12px',
+                padding: '24px',
+                width: '100%',
+                maxWidth: '650px',
+                maxHeight: '90vh',
+                overflowY: 'auto',
+                color: '#fff'
+              }}
+            >
+              <button
+                onClick={() => setSelectedVehicle(null)}
+                style={{
+                  float: 'right',
+                  background: '#c9a44c',
+                  border: 0,
+                  padding: '8px 14px',
+                  cursor: 'pointer'
+                }}
+              >
+                Close
+              </button>
+
+              <h2>
+                {selectedVehicle.year} {selectedVehicle.make} {selectedVehicle.model}
+              </h2>
+
+              {selectedVehicle.vehicle_media?.map((item, index) => {
+                const url = supabase.storage
+                  .from(item.bucket_name)
+                  .getPublicUrl(item.object_path).data.publicUrl
+
+                return item.media_type === 'image' ? (
+                  <img
+                    key={index}
+                    src={url}
+                    alt={selectedVehicle.model}
+                    style={{ width: '100%', borderRadius: '8px', marginBottom: '12px' }}
+                  />
+                ) : (
+                  <video
+                    key={index}
+                    src={url}
+                    controls
+                    playsInline
+                    style={{ width: '100%', marginBottom: '12px' }}
+                  />
+                )
+              })}
+
+              <p><strong>Trim:</strong> {selectedVehicle.trim || 'Not specified'}</p>
+              <p><strong>Body type:</strong> {selectedVehicle.body_type}</p>
+              <p><strong>Mileage:</strong> {selectedVehicle.mileage} {selectedVehicle.mileage_unit}</p>
+              <p><strong>Transmission:</strong> {selectedVehicle.transmission}</p>
+              <p><strong>Fuel:</strong> {selectedVehicle.fuel_type}</p>
+              <p><strong>Price:</strong> {selectedVehicle.price_on_request ? 'Contact for price' : money(selectedVehicle.price)}</p>
+              <p><strong>Description:</strong> {selectedVehicle.description || 'Contact us for more details.'}</p>
+
+              <button
+                className="gold-button"
+                onClick={() => enquiry(selectedVehicle)}
+              >
+                Enquire on WhatsApp
+              </button>
+            </div>
+          </div>
+        )}
         <section className="about-section section-pad" id="about">
           <div>
             <p className="eyebrow">ABOUT CARS4SALES</p>
