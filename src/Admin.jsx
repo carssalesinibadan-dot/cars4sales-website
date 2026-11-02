@@ -31,7 +31,10 @@ export default function Admin() {
   const [vehicles, setVehicles] = useState([])
   const [message, setMessage] = useState('')
   const [busy, setBusy] = useState(false)
-
+const [currentPassword, setCurrentPassword] = useState('')
+const [newPassword, setNewPassword] = useState('')
+const [confirmNewPassword, setConfirmNewPassword] = useState('')
+const [passwordBusy, setPasswordBusy] = useState(false)
   const [form, setForm] = useState({
     make: '',
     model: '',
@@ -91,6 +94,49 @@ export default function Admin() {
     setMessage('Login successful.')
   }
 
+  async function updateAdminPassword(e) {
+  e.preventDefault()
+  setMessage('')
+
+  if (newPassword.length < 8) {
+    setMessage('Password must contain at least 8 characters.')
+    return
+  }
+
+  if (newPassword !== confirmNewPassword) {
+    setMessage('The new passwords do not match.')
+    return
+  }
+
+  setPasswordBusy(true)
+
+  const { error: verifyError } = await supabase.auth.signInWithPassword({
+    email: session.user.email,
+    password: currentPassword
+  })
+
+  if (verifyError) {
+    setPasswordBusy(false)
+    setMessage('Current password is incorrect.')
+    return
+  }
+
+  const { error } = await supabase.auth.updateUser({
+    password: newPassword
+  })
+
+  setPasswordBusy(false)
+
+  if (error) {
+    setMessage(error.message)
+    return
+  }
+
+  setCurrentPassword('')
+  setNewPassword('')
+  setConfirmNewPassword('')
+  setMessage('Password updated successfully.')
+  }
   async function loadVehicles() {
     const { data, error } = await supabase
       .from('vehicles')
@@ -264,7 +310,61 @@ export default function Admin() {
       </header>
 
       <p>{message}</p>
+<section style={{
+  maxWidth: 700,
+  margin: '30px auto',
+  padding: 22,
+  background: '#151515',
+  border: '1px solid #55452a'
+}}>
+  <h2>Account Settings</h2>
+  <h3>Change Administrator Password</h3>
 
+  <form onSubmit={updateAdminPassword}>
+    <label>
+      Current password
+      <input
+        style={inputStyle}
+        type="password"
+        value={currentPassword}
+        onChange={e => setCurrentPassword(e.target.value)}
+        required
+      />
+    </label>
+
+    <label>
+      New password
+      <input
+        style={inputStyle}
+        type="password"
+        minLength={8}
+        value={newPassword}
+        onChange={e => setNewPassword(e.target.value)}
+        required
+      />
+    </label>
+
+    <label>
+      Confirm new password
+      <input
+        style={inputStyle}
+        type="password"
+        minLength={8}
+        value={confirmNewPassword}
+        onChange={e => setConfirmNewPassword(e.target.value)}
+        required
+      />
+    </label>
+
+    <button
+      type="submit"
+      style={buttonStyle}
+      disabled={passwordBusy}
+    >
+      {passwordBusy ? 'Updating password...' : 'Update Password'}
+    </button>
+  </form>
+</section>
       <section style={{ maxWidth: 700, margin: '30px auto', padding: 22, background: '#151515', border: '1px solid #55452a' }}>
         <h2>Add a vehicle</h2>
 
