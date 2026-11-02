@@ -346,12 +346,18 @@ function App() {
             <article>
               <Car />
               <h3>Quality Vehicles</h3>
-              <p>Explore available vehicles from Lexus, Toyota and other makes.</p>
+              <p>Exceptional Lexus and Toyota vehicles. Unforgettable drives. Explore our carefully selected collection and find the car that is made for you.</p>
             </article>
             <article>
               <Wrench />
               <h3>After-Sales Support</h3>
-              <p>Speak with our team for assistance after your vehicle purchase.</p>
+              <p>Speak with our representative for assistance after your vehicle purchase.</p>
+<p>We also offer the following after-sales services at discounted prices:</p>
+<ul>
+  <li>Vehicle Servicing</li>
+  <li>Vehicle Repairs</li>
+  <li>Vehicle Detailing</li>
+</ul>
             </article>
             <article>
               <MessageCircle />
@@ -372,7 +378,16 @@ function App() {
           </div>
           <div className="contact-details">
             <p><Phone /> <a href="tel:+2348100772522">0810 077 2522</a></p>
-            <p><MapPin /> {ADDRESS}</p>
+            <p>
+  <MapPin />
+  <a
+    href="https://maps.app.goo.gl/HvbdRzqDQq32s3Zm7"
+    target="_blank"
+    rel="noreferrer"
+  >
+    {ADDRESS} — Get Directions
+  </a>
+</p>
             <p><Clock /> Contact us for current availability and enquiries.</p>
           </div>
         </section>
