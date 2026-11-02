@@ -310,7 +310,7 @@ function App() {
 
               <p><strong>Trim:</strong> {selectedVehicle.trim || 'Not specified'}</p>
               <p><strong>Body type:</strong> {selectedVehicle.body_type}</p>
-              <p><strong>Mileage:</strong> {selectedVehicle.mileage} {selectedVehicle.mileage_unit}</p>
+              <p><strong>Mileage:</strong> {selectedVehicle.mileage ? `${Number(selectedVehicle.mileage).toLocaleString('en-US')} miles` : 'Not specified'}</p>
               <p><strong>Transmission:</strong> {selectedVehicle.transmission}</p>
               <p><strong>Fuel:</strong> {selectedVehicle.fuel_type}</p>
               <p><strong>Price:</strong> {selectedVehicle.price_on_request ? 'Contact for price' : money(selectedVehicle.price)}</p>
