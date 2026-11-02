@@ -39,7 +39,7 @@ export default function Admin() {
     trim: '',
     body_type: 'SUV',
     mileage: '',
-    mileage_unit: 'km',
+    mileage_unit: 'mi',
     transmission: '',
     fuel_type: '',
     price: '',
@@ -141,7 +141,7 @@ export default function Admin() {
       trim: '',
       body_type: 'SUV',
       mileage: '',
-      mileage_unit: 'km',
+      mileage_unit: 'mi',
       transmission: '',
       fuel_type: '',
       price: '',
@@ -270,15 +270,12 @@ export default function Admin() {
 
         <form onSubmit={addVehicle}>
           {[
-            ['make', 'Vehicle make', 'text'],
-            ['model', 'Vehicle model', 'text'],
-            ['year', 'Year', 'number'],
-            ['trim', 'Trim / version', 'text'],
-            ['mileage', 'Mileage', 'number'],
-            ['transmission', 'Transmission', 'text'],
-            ['fuel_type', 'Fuel type', 'text'],
-            ['price', 'Price in Naira', 'number']
-          ].map(([key, label, type]) => (
+  ['make', 'Vehicle make', 'text'],
+  ['model', 'Vehicle model', 'text'],
+  ['year', 'Year', 'number'],
+  ['trim', 'Trim / version', 'text'],
+  ['mileage', 'Mileage (Miles)', 'number']
+].map(([key, label, type]) => (
             <label key={key} style={{ display: 'block' }}>
               {label}
               <input
@@ -296,13 +293,35 @@ export default function Admin() {
             {['SUV', 'Sedan', 'Coupe', 'Hatchback', 'Truck', 'Van'].map(x => <option key={x}>{x}</option>)}
           </select>
 
-          <label>Mileage unit</label>
-          <select style={inputStyle} value={form.mileage_unit} onChange={e => setForm({ ...form, mileage_unit: e.target.value })}>
-            <option value="km">Kilometres</option>
-            <option value="mi">Miles</option>
-          </select>
+<label>Transmission</label>
+<select
+  style={inputStyle}
+  value={form.transmission}
+  onChange={e => setForm({ ...form, transmission: e.target.value })}
+  required
+>
+  <option value="">Select transmission</option>
+  <option value="Automatic">Automatic</option>
+  <option value="Manual">Manual</option>
+  <option value="CVT">CVT</option>
+</select>
 
-          <label>Description</label>
+<label>Fuel Type</label>
+<select
+  style={inputStyle}
+  value={form.fuel_type}
+  onChange={e => setForm({ ...form, fuel_type: e.target.value })}
+  required
+>
+  <option value="">Select fuel type</option>
+  <option value="Petrol">Petrol</option>
+  <option value="Diesel">Diesel</option>
+  <option value="Hybrid">Hybrid</option>
+  <option value="Plug-in Hybrid">Plug-in Hybrid</option>
+  <option value="Electric">Electric</option>
+</select>
+
+<label>Description</label>
           <textarea style={{ ...inputStyle, minHeight: 100 }} value={form.description} onChange={e => setForm({ ...form, description: e.target.value })} />
 
           <label style={{ display: 'block', marginBottom: 16 }}>
