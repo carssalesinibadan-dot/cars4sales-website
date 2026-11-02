@@ -94,6 +94,32 @@ const [passwordBusy, setPasswordBusy] = useState(false)
     setMessage('Login successful.')
   }
 
+  async function forgotAdminPassword() {
+  setMessage('')
+
+  if (email.trim().toLowerCase() !== ADMIN_EMAIL.toLowerCase()) {
+    setMessage('Please enter the authorised administrator email address.')
+    return
+  }
+
+  setBusy(true)
+
+  const { error } = await supabase.auth.resetPasswordForEmail(
+    email.trim(),
+    {
+      redirectTo: `${window.location.origin}/reset-password`
+    }
+  )
+
+  setBusy(false)
+
+  if (error) {
+    setMessage(error.message)
+    return
+  }
+
+  setMessage('Password reset link sent. Please check your email inbox.')
+  }
   async function updateAdminPassword(e) {
   e.preventDefault()
   setMessage('')
@@ -283,7 +309,21 @@ const [passwordBusy, setPasswordBusy] = useState(false)
 
           <label>Password</label>
           <input style={inputStyle} type="password" value={password} onChange={e => setPassword(e.target.value)} required />
-
+          <button
+  type="button"
+  onClick={forgotAdminPassword}
+  disabled={busy}
+  style={{
+    background: 'transparent',
+    color: '#d5ad58',
+    border: 'none',
+    padding: '0',
+    margin: '0 0 14px',
+    cursor: 'pointer'
+  }}
+>
+  Forgot Password?
+</button>
           <button style={buttonStyle} disabled={busy}>
             {busy ? 'Please wait...' : 'Sign in'}
           </button>
